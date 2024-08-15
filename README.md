@@ -9,7 +9,7 @@ This project is a **Background Remover** tool that allows users to upload an ima
 - **Easy to Use**: Simply upload an image and let the tool process it automatically.
 
 ## Project Structure
-- **Frontend**: HTML, CSS, and JavaScript for the user interface.
+- **Frontend**: HTML, CSS(going to be added, and JavaScript(will be added) for the user interface.
 - **Backend**: Python (Flask) to handle the image processing and serve the results.
 - **Machine Learning**: Utilizes a model to remove the background from images.
 - **Repository**: The code and assets are hosted on GitHub.
