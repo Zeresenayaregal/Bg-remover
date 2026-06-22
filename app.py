@@ -21,7 +21,7 @@ def home():
 
         image_dd = base64.b64encode(imgOut.getvalue()).decode("utf-8")
 
-    return render_template("index.html")
+    return render_template("index.html", image_data=image_dd)
 
 if __name__ == "__main__":
     app.run(debug=True)
