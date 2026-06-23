@@ -1,6 +1,4 @@
 from flask import Flask, render_template, request
-from rembg import remove
-from PIL import Image
 from io import BytesIO
 import base64
 
@@ -14,6 +12,9 @@ def health():
 def home():
     image_dd = None
     if request.method == 'POST':
+        from PIL import Image
+        from rembg import remove
+
         file = request.files["image"]
         image = Image.open(file)
         image = remove(image)
