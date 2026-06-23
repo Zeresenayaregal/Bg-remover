@@ -6,6 +6,10 @@ import base64
 
 app = Flask(__name__)
 
+@app.route('/health')
+def health():
+    return 'ok', 200
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
     image_dd = None
@@ -24,4 +28,7 @@ def home():
     return render_template("index.html", image_data=image_dd)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    debug = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
+    app.run(host="0.0.0.0", port=port, debug=debug)
