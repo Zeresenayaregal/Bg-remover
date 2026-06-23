@@ -3,22 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bg Remove</title>
+    <title>Background Remover</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Background Remover</h1>
-        <form action="" method="POST" enctype="multipart/form-data">
-            <input type="file" name="image" accept="image/*" required>
-            <button type="submit">Remove Bg</button>
-        </form>
-
-        {% if image_data %} 
-            <div class="res-img">
-                <img src="data:image/png;base64, {{image_data}}" alt="result image">
+    <div class="page">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">✂</div>
             </div>
-            <a href="data:image/png;base64, {{image_data}}" download="removed_bg" class="downImg">Download Image</a>
-        {% endif %}
+            <h1>Background Remover</h1>
+            <p>Upload any image and get a clean, transparent PNG in seconds.</p>
+        </header>
+
+        <main class="card">
+            <form id="upload-form" action="" method="POST" enctype="multipart/form-data">
+                <div class="dropzone" id="dropzone">
+                    <input type="file" id="file-input" name="image" accept="image/*" required>
+
+                    <div class="dropzone-default">
+                        <div class="dropzone-icon">🖼</div>
+                        <p class="dropzone-text">Drop your image here</p>
+                        <p class="dropzone-hint">or click to browse · JPG, PNG, WEBP supported</p>
+                    </div>
+
+                    <div class="preview-wrap" id="preview-wrap">
+                        <img class="preview-img" id="preview-img" alt="Preview">
+                        <span class="preview-name" id="preview-name"></span>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="btn btn-primary" id="submit-btn">
+                        Remove Background
+                    </button>
+                    <button type="button" class="btn btn-ghost" id="clear-btn">Clear</button>
+                </div>
+            </form>
+
+            {% if image_data %}
+            <section class="result">
+                <div class="result-header">
+                    <h2>Result</h2>
+                    <span class="badge">Background removed</span>
+                </div>
+                <div class="result-frame">
+                    <img src="data:image/png;base64,{{ image_data }}" alt="Background removed result">
+                </div>
+                <div class="result-actions">
+                    <a href="data:image/png;base64,{{ image_data }}" download="removed_bg.png" class="btn btn-primary">
+                        Download PNG
+                    </a>
+                </div>
+            </section>
+            {% endif %}
+        </main>
+
+        <footer class="footer">
+            Powered by rembg · Images processed locally
+        </footer>
     </div>
+
+    <div class="overlay" id="loading-overlay">
+        <div class="spinner"></div>
+        <p>Removing background…</p>
+        <small>First run downloads the AI model (~176 MB). Check your terminal for progress — this may take a few minutes.</small>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
